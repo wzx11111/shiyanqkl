@@ -1,39 +1,46 @@
-const messageType = require('./messages-type');
-const  {
+const messageType = require('./messages-type.js');
+const {
     REQUEST_LATEST_BLOCK,
     RECEIVE_LATEST_BLOCK,
     REQUEST_LATEST_BLOCKCHAIN,
     RECEIVE_LATEST_BLOCKCHAIN,
     HANDSHAKE
 } = messageType;
-class Message {
-    static getLatestBlock(){
+class Messages {
+    // 请求最新区块的消息函数
+    static getLatestBlock() {
         return {
             type: REQUEST_LATEST_BLOCK,
-        }
-    } 
-    static sendLatestBlock(block){
+        };
+    }
+    // 相应最新区块的消息函数（将最新的区块发送给请求方）
+    static sendLatestBlock(block) {
         return {
             type: RECEIVE_LATEST_BLOCK,
             data: block
-        }
+        };
     }
-    static getBlockchain(){
+    // 请求整个区块链的消息函数
+    static getBlockchain() {
         return {
             type: REQUEST_LATEST_BLOCKCHAIN,
         };
     }
-    static sendBlockchain(blockchain){
+    // 响应整个区块链的消息函数（将整个区块链发送给请求方）
+    static sendBlockchain(blockchain) {
         return {
             type: RECEIVE_LATEST_BLOCKCHAIN,
             data: blockchain
         };
     }
-    static sendHandshake(port){
+    // 发送握手消息，包含本节点的监听端口
+    static sendHandshake(port) {
         return {
             type: HANDSHAKE,
-            data: port
+            data: { port }
         };
     }
 }
-module.exports = Message;
+
+
+module.exports = Messages;
